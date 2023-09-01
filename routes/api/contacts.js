@@ -8,6 +8,10 @@ const controllers = require('../../controllers/contacts')
 
 const router = express.Router()
 
+const {validateBody} = require('../../middlewares')
+
+const schemas = require('../../schemas/contacts')
+
 // const addSchema = Joi.object({
 //   name: Joi.string().required(),
 //   email: Joi.string().required(),
@@ -44,6 +48,7 @@ controllers.getContactById
   )
 
 router.post('/', 
+validateBody(schemas.addSchema),
 controllers.addContact
 // async (req, res, next) => {
 //   try{
@@ -76,6 +81,7 @@ controllers.removeContact
   )
 
 router.put('/:id', 
+validateBody(schemas.addSchema),
 controllers.updateContact
 // async (req, res, next) => {
 //   try {
