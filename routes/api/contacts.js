@@ -6,12 +6,12 @@ const schemas = require('../../schemas/contacts')
 
 router.get('/', controllers.listContacts)
 
-router.get('/:id', controllers.getContactById)
+// router.get('/:id', controllers.getContactById)
 
-router.post('/', validateBody(schemas.addSchema), controllers.addContact)
+// router.post('/', validateBody(schemas.addSchema), controllers.addContact)
 
-router.delete('/:id', controllers.removeContact)
+// router.delete('/:id', controllers.removeContact)
 
-router.put('/:id', validateBody(schemas.addSchema), controllers.updateContact)
+// router.put('/:id', validateBody(schemas.addSchema), controllers.updateContact)
 
 module.exports = router
