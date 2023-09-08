@@ -4,6 +4,7 @@ const ctrlWrapper = ctrl => {
             await ctrl(req, res, next)
         }
         catch(error){
+            console.log(1, error)
             next(error)
         }
     }
