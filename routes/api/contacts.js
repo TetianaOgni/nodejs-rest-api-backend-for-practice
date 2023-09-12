@@ -1,8 +1,9 @@
 const express = require('express')
 const controllers = require('../../controllers/contacts')
-const router = express.Router()
 const {validateBody, isValidId} = require('../../middlewares')
 const {schemas} = require('../../models/Contact')
+
+const router = express.Router()
 
 router.get('/', controllers.listContacts)
 
