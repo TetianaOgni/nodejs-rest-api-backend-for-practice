@@ -1,6 +1,6 @@
 const express = require('express')
-const ctrl1 = require('../../controllers/auth/register')
-const ctrl2 = require('../../controllers/auth/login')
+const ctrl1 = require('../../controllers')
+const ctrl2 = require('../../controllers')
 
 
 const {validateBody} = require('../../middlewares')
@@ -12,4 +12,4 @@ router.post('/register', validateBody(schemas.registerSchema), ctrl1.register)
 
 router.post('/login', validateBody(schemas.loginSchema), ctrl2.login)
 
-module.exports = router
+module.exports = router 

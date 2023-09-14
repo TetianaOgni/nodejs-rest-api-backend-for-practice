@@ -1,6 +1,6 @@
 const {Schema, model} = require('mongoose')
 const Joi = require('joi')
-const {handleMongooseError} = require('../helpers')
+const {handleMongooseError, runValidateAtUpdate} = require('../helpers')
 
 const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 const userSchema = new Schema ({
@@ -23,6 +23,8 @@ const userSchema = new Schema ({
 }, {versionKey: false, timestamps: true})
 
 userSchema.post('save', handleMongooseError)
+userSchema.pre('findOneAndUpdate', runValidateAtUpdate)
+userSchema.post('findOneAndUpdate', handleMongooseError)
 
 const registerSchema = Joi.object({
     name: Joi.string().required(),
@@ -46,3 +48,4 @@ module.exports = {
     User, 
     schemas,
 }
+
