@@ -3,11 +3,17 @@ const {HttpError, ctrlWrapper }= require('../helpers')
 
  
   const listContacts = async (req, res) => {
-    const result = await Contact.find()
+     // дізнаємося хто робить запит і віддаємо данні до яких є доступ у користувача завдяки _id: owner
+     const {_id: owner} = req.user
+     // пагінація
+     const {page = 1, limit = 10} = req.query
+     const skip = (page - 1) * limit
+    const result = await Contact.find({owner}, {skip, limit}).populate('owner', 'name email')  //populate повертає інфу про користувача, принимает перш. арг. що найти, а другим - що конкретно передать
     res.json(result)
 }
 
   const getContactById = async (req, res, next) => {
+   
     const {id} = req.params
     const result = await Contact.findById(id)
     if (!result){
@@ -18,7 +24,10 @@ const {HttpError, ctrlWrapper }= require('../helpers')
 
  
   const addContact = async (req, res, next) => {
-    const result = await Contact.create(req.body)
+    // додаємо контакт и привʼязуємо єго до користувача який робить запит
+    const {_id: owner} = req.user
+    const result = await Contact.create({...req.body, owner})
+    // const result = await Contact.create(req.body, owner)
     res.status(201).json(result)
 }
 

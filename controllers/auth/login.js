@@ -27,17 +27,13 @@ const login = async(req, res) => {
     const payload = {
         id: user._id,
     }
+    // создаємо токен
     const token = jwt.sign(payload, SECRET_KEY, {expiresIn: "23h"})
-    const decodeToken = jwt.decode(token)
-    // try{
-    //   const {id} = jwt.verify(token, SECRET_KEY)
-    //   const invalidToken = ""
-    //   jwt.verify(invalidToken, SECRET_KEY)
-    // }
-    // catch(error){
-    //     console.log(error.message)
-    // }
-
+    // const decodeToken = jwt.decode(token)
+    await User.findByIdAndUpdate(user._id, {token})
+    // res.json ({
+    //     token,
+    // })
     const responseBody = {
         token,
         user: {
@@ -47,6 +43,8 @@ const login = async(req, res) => {
     }
     res.status(200).header('Content-Type', 'application/json').json(responseBody)
 }
+
+
 module.exports = {
-    login: ctrlWrapper(login)
+    login: ctrlWrapper(login),
 }

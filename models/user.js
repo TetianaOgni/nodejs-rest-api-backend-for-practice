@@ -18,8 +18,12 @@ const userSchema = new Schema ({
         type: String,
         minlength: 6,
         required: true,
+    },
+    token: {
+        type: String,
+        default: '',
     }
-
+  
 }, {versionKey: false, timestamps: true})
 
 userSchema.post('save', handleMongooseError)
