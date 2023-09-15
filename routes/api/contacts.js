@@ -1,13 +1,9 @@
 const express = require('express')
-
 const ctrl = require('../../controllers')
-
 const {validateBody, isValidId, authenticate} = require('../../middlewares')
 const {schemas} = require('../../models/Contact')
 
 const router = express.Router()
-
-// router.use(authenticate) // можна не прописувать у кожному запиті authenticate, а заробити це так
 
 router.get('/', authenticate, ctrl.listContacts)
 

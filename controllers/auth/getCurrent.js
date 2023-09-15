@@ -2,12 +2,9 @@ const {ctrlWrapper} = require('../../helpers')
 
 const getCurrent = async(req, res)=>{
 
-    const {email, name, subscription} = req.user
+    const {email, subscription} = req.user
     console.log(subscription)
-    // res.json({
-    //   email,
-    //   name,
-    // })
+    
     const responseBody = {
       email: email,
       subscription: subscription 

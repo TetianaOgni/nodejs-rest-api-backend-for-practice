@@ -20,7 +20,7 @@ const contactSchema = new mongoose.Schema (
       default: false,
     },
     owner: {
-      type: mongoose.Schema.Types.ObjectId, // для MongoDB id - це окремий тип данних, на відміну js
+      type: mongoose.Schema.Types.ObjectId, 
       ref: 'user',
       required: true,
   }

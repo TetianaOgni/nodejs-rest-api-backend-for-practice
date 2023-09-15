@@ -5,25 +5,6 @@ const {handleMongooseError, runValidateAtUpdate} = require('../helpers')
 const subscriptionOptions = ["starter", "pro", "business"]
 const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 const userSchema = new Schema ({
-    // name: {
-    //     type: String,
-    //     required: true,
-    // },
-    // email: {
-    //     type: String,
-    //     match: emailRegexp,
-    //     unique: true,
-    //     required: true,
-    // },
-    // password: {
-    //     type: String,
-    //     minlength: 6,
-    //     required: true,
-    // },
-    // token: {
-    //     type: String,
-    //     default: '',
-    // }
     
         password: {
           type: String,
@@ -41,18 +22,14 @@ const userSchema = new Schema ({
           enum: subscriptionOptions,
           default: "starter"
         },
-        token: String // завдяки цьому токен можна сберегти у базі
+        token: String 
   }, {versionKey: false})
 
 userSchema.post('save', handleMongooseError)
 userSchema.pre('findOneAndUpdate', runValidateAtUpdate)
 userSchema.post('findOneAndUpdate', handleMongooseError)
 
-// const registerSchema = Joi.object({
-//     name: Joi.string().required(),
-//     email: Joi.string().pattern(emailRegexp).required(),
-//     password: Joi.string().min(6).required(),
-// })
+
 const registerSchema = Joi.object({
     password: Joi.string().min(6).required(),
     email: Joi.string().pattern(emailRegexp).required(), 

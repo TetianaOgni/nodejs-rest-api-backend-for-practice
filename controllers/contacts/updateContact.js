@@ -11,7 +11,6 @@ const updateContact = async (req, res, next) => {
     res.json(result) 
 }
 
-
 module.exports = {
     updateContact: ctrlWrapper(updateContact),
 }
