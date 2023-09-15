@@ -3,7 +3,7 @@ const {User} = require('../../models/user')
 const {HttpError, ctrlWrapper} = require('../../helpers')
 
 const register = async(req, res) => {
-  const {email, password} = req.body
+  const {email, password, subscription} = req.body
   const user = await User.findOne({email})
   // if (user){
   //   throw HttpError(409, 'Email in use')
@@ -25,8 +25,8 @@ const register = async(req, res) => {
   // по дз ---
   const responseBody = {
     user: {
-      email: newUser.email,
-      subscription: 'starter',
+      email: email,
+      subscription: subscription,
     },
   };
   res.status(201).header('Content-Type', 'application/json').json(responseBody);

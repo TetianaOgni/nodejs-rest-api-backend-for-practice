@@ -20,7 +20,7 @@ const contactSchema = new mongoose.Schema (
       default: false,
     },
     owner: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId, // для MongoDB id - це окремий тип данних, на відміну js
       ref: 'user',
       required: true,
   }
@@ -31,7 +31,7 @@ contactSchema.pre('findOneAndUpdate', runValidateAtUpdate)
 contactSchema.post('findOneAndUpdate', handleMongooseError)
 
 const addSchema = Joi.object({
-    name: Joi.string().required().messages({"any.required": "missing required name fielddd"}),
+    name: Joi.string().required().messages({"any.required": "missing required name field"}),
     email: Joi.string().required(),
     phone: Joi.string().required(),
     favorite: Joi.boolean().required().messages({"any.required": "missing required name field"}),

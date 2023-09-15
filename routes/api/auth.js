@@ -9,6 +9,7 @@ const {schemas} = require('../../models/user')
 
 const router = express.Router()
 
+
 router.post('/register', validateBody(schemas.registerSchema), ctrlRegister.register)
 
 router.post('/login', validateBody(schemas.loginSchema), ctrlLogin.login)

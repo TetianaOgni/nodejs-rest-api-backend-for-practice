@@ -12,9 +12,9 @@ const authenticate = async (req, res, next) => {
      next(HttpError(401, 'Not authorized')) // спрацьовує коли нема баєра а значить і токена теж
    }
    try {
-        const {id} = jwt.verify(token, SECRET_KEY)
-        const user = await User.findById(id)
-        if(!user || !user.token || user.token !== token) {
+        const {id} = jwt.verify(token, SECRET_KEY) // отримуємо id користувача из токена
+        const user = await User.findById(id) // знаходимо конкретного користувача по цьому id
+        if(!user || !user.token || user.token !== token) { // якщо користувача нема або токена нема або токен не відповідає дійсному 
         // res.setHeader('Content-Type', 'application/json')
             next(HttpError(401, 'Not authorized')) // повинени спрацьовувати коли такого юзера вже нема у базі, а час діі токена ще не сплив
         }
