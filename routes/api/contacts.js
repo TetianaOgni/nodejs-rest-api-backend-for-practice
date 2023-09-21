@@ -9,7 +9,7 @@ router.get('/', authenticate, ctrl.listContacts)
 
 router.get('/:id', authenticate, isValidId, ctrl.getContactById)
 
-router.post('/', upload.single('avatar'), authenticate, validateBody(schemas.addSchema), ctrl.addContact)
+router.post('/', upload.single('avatarUrl'), authenticate, validateBody(schemas.addSchema), ctrl.addContact)
 
 router.delete('/:id', authenticate, isValidId, ctrl.removeContact)
 

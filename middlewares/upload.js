@@ -4,9 +4,7 @@ const destination = path.resolve('temp')
 const multerConfig = multer.diskStorage({
     destination,
     filename: (req, file, cb)=>{
-    const uniquePrefix = `${Date.now()}_${Math.round(Math.random() * 1E9)}`;
-    const filename = `${uniquePrefix}_${file.originalname}`;
-    cb(null, filename);
+      cb(null, file.originalname);
 }
 })
 const limits = {
