@@ -1,25 +1,24 @@
 const jimp = require('jimp');
-const fs = require('fs/promises')//модуль FileSystem отвечает за работу с файлами в Node.js
-const path = require('path')//   модуль path, який входить до стандартної бібліотеки Node.js потрібен роботи з шляхами файлової системи
+const fs = require('fs/promises')
+const path = require('path')
 
 const { ctrlWrapper } = require("../../helpers")
 const {User} = require('../../models/user')
 
-const avatarsPath = path.resolve('public', 'avatars') // создает абсолют путь к папке public
+const avatarsPath = path.resolve('public', 'avatars') 
 
 const updateAvatar = async(req, res)=>{
 
    const {_id} = req.user
-   const {path: oldPath, filename} = req.file // берем старый путь к папке и имя файла
-   const newPath = path.join(avatarsPath, filename) //join соединяет куски пути делая полный путь к файлу
-   await fs.rename(oldPath, newPath)// перемещаем файл из папки temp в папку public
+   const {path: oldPath, filename} = req.file 
+   const newPath = path.join(avatarsPath, filename) 
+   await fs.rename(oldPath, newPath)
    
-     //изменение размера аватарки пакетом jimp
-     const jimpImage = await jimp.read(newPath);// Read the image.
-     await jimpImage.resize(250, 250, jimp.RESIZE_BEZIER);// Resize the image to width 250 and auto height.
-     await jimpImage.writeAsync(newPath);// Save and overwrite the image 
+     const jimpImage = await jimp.read(newPath);
+     await jimpImage.resize(250, 250, jimp.RESIZE_BEZIER);
+     await jimpImage.writeAsync(newPath);
    
-   const uniqFilename = `${_id}_${filename}`//делает имя файла уникальным,тоже самое мы делали в upload лучше выбрать что-то одно или будет слишком длинное имя 
+   const uniqFilename = `${_id}_${filename}`
    const avatarUrl = path.join('avatars', uniqFilename)
    await User.findByIdAndUpdate(_id, {avatarUrl})
     
