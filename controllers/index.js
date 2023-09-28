@@ -5,7 +5,9 @@ const {
   logout,
   updateAvatar,
   verify,
+  resendVerifyEmail,
 } = require("./auth");
+
 const {
   listContacts,
   getContactById,
@@ -14,12 +16,14 @@ const {
   updateContact,
   updateStatusContact,
 } = require("./contacts");
+
 module.exports = {
   register,
   login,
   getCurrent,
   logout,
   verify,
+  resendVerifyEmail,
   updateAvatar,
   listContacts,
   getContactById,
