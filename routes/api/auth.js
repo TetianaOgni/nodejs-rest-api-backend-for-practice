@@ -5,15 +5,16 @@ const { schemas } = require("../../models/user");
 
 const router = express.Router();
 
-router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
+// router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
+router.post("/signup", validateBody(schemas.registerSchema), ctrl.register);
 
-router.get("/verify/:verificationToken", ctrl.verify);
+// router.get("/verify/:verificationToken", ctrl.verify);
 
-router.post(
-  "/verify",
-  validateBody(schemas.emailSchema),
-  ctrl.resendVerifyEmail
-);
+// router.post(
+//   "/verify",
+//   validateBody(schemas.emailSchema),
+//   ctrl.resendVerifyEmail
+// );
 
 router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
 
@@ -27,5 +28,5 @@ router.patch(
   upload.single("avatar"),
   ctrl.updateAvatar
 );
-
+// у Александра зим есть еще обновление подписки subscription
 module.exports = router;

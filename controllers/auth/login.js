@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { User } = require("../../models/user");
 const { HttpError, ctrlWrapper } = require("../../helpers");
@@ -6,18 +6,22 @@ const { HttpError, ctrlWrapper } = require("../../helpers");
 const { SECRET_KEY } = process.env;
 
 const login = async (req, res) => {
-  const { email, password, subscription } = req.body;
+  // const { email, password, subscription } = req.body;
+  const { email, password } = req.body;//
+
   const user = await User.findOne({ email });
   if (!user) {
     throw HttpError(401, "Email or password is wrong");
   }
-  if (!user.verify) {
-    throw HttpError(401, "Email not verify");
-  }
+  // if (!user.verify) {
+  //   throw HttpError(401, "Email not verify");
+  // }
 
-  const passwordCompare = await bcrypt.compare(password, user.password);
+  // const passwordCompare = await bcrypt.compare(password, user.password);//порівняння паролей
+  const passwordCompare = await user.comparePassword(password)//
   if (!passwordCompare) {
     throw HttpError(401, "Email or password is wrong");
+
   }
 
   const payload = {
@@ -30,8 +34,11 @@ const login = async (req, res) => {
   const responseBody = {
     token,
     user: {
-      email: email,
-      subscription: subscription,
+      // name,
+      email, 
+      avatarUrl
+      // email: email,
+      // subscription: subscription,
     },
   };
   res.status(200).header("Content-Type", "application/json").json(responseBody);
